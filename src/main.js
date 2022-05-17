@@ -20,7 +20,7 @@ export default function (Vue, { router, head, isClient }) {
   Vue.mixin({
     data () {
       return {
-        GRIDSOME_ASSET_URL: process.env.NODE_ENV === 'development' ? process.env.GRIDSOME_API_URL : '',
+        GRIDSOME_PROXY_URL: process.env.NODE_ENV === 'development' ? process.env.GRIDSOME_API_URL : '/proxy',
         GRIDSOME_API_URL: process.env.GRIDSOME_API_URL
       }
     }

@@ -4,7 +4,7 @@
     <header 
       class="masthead" 
       :style="{
-        backgroundImage: `url(${GRIDSOME_ASSET_URL}${general.cover.url})`
+        backgroundImage: `url(${GRIDSOME_PROXY_URL}${general.cover.url})`
       }"
     >
       <div class="overlay"></div>

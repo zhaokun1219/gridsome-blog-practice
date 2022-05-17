@@ -76,7 +76,7 @@
     methods: {
       async obSubmit () {
         try {
-          const { data } = await axios.post(`${this.GRIDSOME_API_URL}/contacts`, this.form)
+          const { data } = await axios.post(`${this.GRIDSOME_PROXY_URL}/contacts`, this.form)
           this.form = {
             name: '',
             email: '',
