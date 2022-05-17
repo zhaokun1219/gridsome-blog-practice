@@ -4,7 +4,7 @@
     <header
       class="masthead"
       :style="{
-        'background-image': `url(${GRIDSOME_API_URL}${$page.post.cover.url})`
+        'background-image': `url(${GRIDSOME_ASSET_URL}${$page.post.cover.url})`
       }"
     >
       <div class="overlay"></div>

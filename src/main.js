@@ -9,6 +9,9 @@ import DefaultLayout from '~/layouts/Default.vue'
 import dayjs from 'dayjs'
 
 export default function (Vue, { router, head, isClient }) {
+  console.log(process.env)
+  console.log(JSON.stringify(process.env))
+  console.table(process.env.NODE_ENV)
   // Set default layout as a global component
   Vue.filter('date', (value, format = 'YYYY-MM-DD HH:mm:ss') => {
     return dayjs(value).format(format)
@@ -17,6 +20,7 @@ export default function (Vue, { router, head, isClient }) {
   Vue.mixin({
     data () {
       return {
+        GRIDSOME_ASSET_URL: process.env.NODE_ENV === 'development' ? process.env.GRIDSOME_API_URL : '',
         GRIDSOME_API_URL: process.env.GRIDSOME_API_URL
       }
     }
