@@ -4,7 +4,7 @@
     <header
       class="masthead"
       :style="{
-        'background-image': `url(http://localhost:1337${$page.post.cover.url})`
+        'background-image': `url(${GRIDSOME_API_URL}${$page.post.cover.url})`
       }"
     >
       <div class="overlay"></div>
@@ -13,9 +13,7 @@
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="post-heading">
               <h1>{{ $page.post.title }}</h1>
-              <span v-if="$page.post.created_by" class="meta">Posted by
-                <a href="#">{{ $page.post.created_by.firstname + $page.post.created_by.lastname }}</a>
-                on {{ $page.post.created_at }}</span>
+              <span v-if="$page.post.created_at" class="meta">{{ $page.post.created_at | date('YYYY-MM-DD')}}</span>
             </div>
           </div>
         </div>
@@ -41,10 +39,6 @@
       title
       content
       created_at
-      created_by {
-        firstname
-        lastname
-      }
       cover {
         url
       }

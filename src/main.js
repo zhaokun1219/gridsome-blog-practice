@@ -6,8 +6,20 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
 
 import './assets/css/index.css'
 import DefaultLayout from '~/layouts/Default.vue'
+import dayjs from 'dayjs'
 
 export default function (Vue, { router, head, isClient }) {
   // Set default layout as a global component
+  Vue.filter('date', (value, format = 'YYYY-MM-DD HH:mm:ss') => {
+    return dayjs(value).format(format)
+  })
+  
+  Vue.mixin({
+    data () {
+      return {
+        GRIDSOME_API_URL: process.env.GRIDSOME_API_URL
+      }
+    }
+  })
   Vue.component('Layout', DefaultLayout)
 }

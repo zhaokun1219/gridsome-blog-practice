@@ -4,7 +4,7 @@
     <header 
       class="masthead" 
       :style="{
-        backgroundImage: `url(http://localhost:1337${general.cover.url})`
+        backgroundImage: `url(${GRIDSOME_API_URL}${general.cover.url})`
       }"
     >
       <div class="overlay"></div>
@@ -30,9 +30,7 @@
                 {{ edge.node.title }}
               </h2>
             </g-link>
-            <p v-if="edge.node.created_by" class="post-meta">Posted by
-              <a href="#">{{ edge.node.created_by.firstname + edge.node.created_by.lastname }}</a>
-              on {{ edge.node.created_at }}
+            <p v-if="edge.node.created_at" class="post-meta"> {{ edge.node.created_at | date('YYYY-MM-DD') }}
             </p>
             <p>
               <g-link 
@@ -48,9 +46,6 @@
           </div>
           <!-- Pager -->
           <Pager class='page-box' :info="$page.posts.pageInfo"/>
-          <!-- <div class="clearfix">
-            <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-          </div> -->
         </div>
       </div>
     </div>
@@ -59,7 +54,7 @@
 
 <page-query>
   query ($page: Int) {
-    posts: allStrapiPost (perPage: 2, page: $page) @paginate {
+    posts: allStrapiPost (perPage: 10, page: $page) @paginate {
       pageInfo {
         totalPages
         currentPage
@@ -68,11 +63,6 @@
         node {
           id
           title
-          created_by {
-            id
-            firstname
-            lastname
-          }
           created_at
           tags {
             id
@@ -102,9 +92,6 @@ import { Pager } from 'gridsome'
 
 export default {
   name: 'HomePage',
-  metaInfo: {
-    title: 'Hello, world!'
-  },
   components: {
     Pager
   },

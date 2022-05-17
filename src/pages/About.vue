@@ -1,14 +1,19 @@
 <template>
   <Layout>
     <!-- Page Header -->
-    <header class="masthead" style="background-image: url('/img/about-bg.jpg')">
+    <header 
+      class="masthead" 
+      :style="{
+        backgroundImage: `url(${GRIDSOME_API_URL}${aboutme.cover.url})`
+      }"
+    >
       <div class="overlay"></div>
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="page-heading">
-              <h1>About Me</h1>
-              <span class="subheading">This is what I do.</span>
+              <h1>{{aboutme.title}}</h1>
+              <span v-if="aboutme.subtitle" class="subheading">{{aboutme.subtitle}}</span>
             </div>
           </div>
         </div>
@@ -18,21 +23,45 @@
     <!-- Main Content -->
     <div class="container">
       <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe nostrum ullam eveniet pariatur voluptates odit, fuga atque ea nobis sit soluta odio, adipisci quas excepturi maxime quae totam ducimus consectetur?</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius praesentium recusandae illo eaque architecto error, repellendus iusto reprehenderit, doloribus, minus sunt. Numquam at quae voluptatum in officia voluptas voluptatibus, minus!</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut consequuntur magnam, excepturi aliquid ex itaque esse est vero natus quae optio aperiam soluta voluptatibus corporis atque iste neque sit tempora!</p>
+        <div class="col-lg-8 col-md-10 mx-auto" v-html="mdToHtml(aboutme.content)">
+          
         </div>
       </div>
     </div>
   </Layout>
 </template>
 
+<page-query>
+  query {
+    aboutme: allStrapiAboutme {
+      edges {
+        node {
+          title
+          content
+          subtitle
+          cover {
+            url
+          }
+        }
+      }
+    }
+  }
+</page-query>
+
 <script>
+import MarkdownIt from 'markdown-it'
+const md = new MarkdownIt()
 export default {
   name: 'About',
-  metaInfo: {
-    title: 'About us'
+  computed: {
+    aboutme () {
+      return this.$page.aboutme.edges[0].node
+    }
+  },
+  methods: {
+    mdToHtml (markdown) {
+      return md.render(markdown)
+    }
   }
 }
 </script>

@@ -24,24 +24,10 @@
                 {{ post.title }}
               </h2>
             </g-link>
-            <!-- <p v-if="post.created_by" class="post-meta">Posted by
-              <a href="#">{{ post.created_by.firstname + post.created_by.lastname }}</a>
-              on {{ post.created_at }}
+            <p v-if="post.created_at" class="post-meta">{{ post.created_at | date('YYYY-MM-DD')}}
             </p>
-            <p>
-              <g-link 
-                style="margin-right: 12px" 
-                v-for="tag in post.tags" 
-                :key='tag.id'
-                :to="'/tag/' + tag.id" 
-              >
-                {{ tag.title }}
-              </g-link>
-            </p> -->
             <hr>
           </div>
-          <!-- Pager -->
-          <!-- <Pager class='page-box' :info="$page.posts.pageInfo"/> -->
         </div>
       </div>
     </div>
@@ -56,6 +42,7 @@
       posts {
         id
         title
+        created_at
       }
     }
   }
